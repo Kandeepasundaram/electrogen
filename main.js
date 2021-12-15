@@ -5,7 +5,8 @@ const { initialize } = require("@electron/remote/main");
 initialize();
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
-const url = require("url");
+
+const {format, pathToFileURL} = require("url");
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -21,18 +22,12 @@ const createWindow = () => {
   // and load the index.html of the app.
   // mainWindow.loadFile('index.html')
 
+  const filePath = '/dist/index.html';
   mainWindow.loadURL(
-    url.format({
-      pathname: path.join(__dirname, `/dist/index.html`),
-      protocol: "file:",
-      slashes: true
-    })
+    format(pathToFileURL(path.join(__dirname, filePath)))
   );
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
-
-  // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools();
 }
 
 // This method will be called when Electron has finished
