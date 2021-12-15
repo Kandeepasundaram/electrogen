@@ -1,10 +1,11 @@
 // main.js
 
 // Modules to control application life and create native browser window
+const { initialize } = require("@electron/remote/main");
+initialize();
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
 const url = require("url");
-
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -12,7 +13,8 @@ const createWindow = () => {
     height: 600,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
-      nodeIntegration: true
+      nodeIntegration: true,
+      contextIsolation: false
     }
   })
 
